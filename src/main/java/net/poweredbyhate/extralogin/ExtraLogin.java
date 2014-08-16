@@ -12,8 +12,13 @@ import org.bukkit.potion.PotionEffectType;
 
 public class ExtraLogin extends JavaPlugin implements Listener {
 
+    String loginSound;
+
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(this, this);
+        saveDefaultConfig();
+        saveConfig();
+        loginSound = getConfig().getString("LoginSound");
     }
 
     @EventHandler
@@ -39,7 +44,7 @@ public class ExtraLogin extends JavaPlugin implements Listener {
 
     public void musicAlert(Player p) {
         if (p.hasPermission("extraLogin.musicalert.exp")) {
-           p.playSound(p.getLocation(), Sound.ORB_PICKUP, 1, 1);
+           p.playSound(p.getLocation(), Sound.valueOf(loginSound), 1, 1);
         }
     }
 
@@ -48,5 +53,4 @@ public class ExtraLogin extends JavaPlugin implements Listener {
              p.setFoodLevel(20);
         }
     }
-
 }
